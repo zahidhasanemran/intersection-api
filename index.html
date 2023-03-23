@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <style>
+    *,
+    h2 {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    #bottom,
+    #middle,
+    #top {
+      height: 800px;
+      width: 100%;
+    }
+    #top {
+      background: orange;
+    }
+    #middle {
+      background: skyblue;
+    }
+    #bottom {
+      background: gold;
+    }
+    h2 {
+      margin-left: -50px;
+      transition: 2s linear;
+    }
+    .show{
+      margin-left: 0px;
+    }
+  </style>
+<body>
+  
+  <section id="top"></section>
+  <section id="middle"></section>
+  <section id="bottom">
+    <h2>Hi bro</h2>
+  </section>
+
+
+  <script>
+        
+    window.addEventListener("DOMContentLoaded", setup);
+
+    function setup() {
+      // CREATE CONFIG
+      const options = {
+        rootMargin: "0px 0px -300px 0px",
+        // Threshold accepts a value between 0 and 1 and represents the percentage of the element that must be visible before isIntersecting becomes true. By default this is set to 0 which means as soon as any part of the element is visible it will be considered intersecting.
+        threshold: 0,
+      };
+
+      // SELECT TARGET
+      const targetHq = document.querySelector("#bottom");
+
+      // Observer
+      const bottomObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const intersecting = entry.isIntersecting
+            let h2 = entry.target.querySelector('h2');
+            h2.classList = ' show'
+          } else {
+            console.log(entry.target.style.backgroundColor)
+            return;
+          }
+        });
+      }, options);
+
+      
+
+      bottomObserver.observe(targetHq);
+    }
+
+    // let connect = () => {
+    //   bottomObserver.observe(targetHq); //Start observer
+    // };
+
+    // let disconnect = () => {
+    //   bottomObserver.unobserve(targetHq); //Stop observer
+    // };
+
+    // connect();
+
+  </script>
+</body>
+</html>
